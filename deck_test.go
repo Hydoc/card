@@ -65,6 +65,46 @@ func TestDeck_Jokers(t *testing.T) {
 	}
 }
 
+func TestDeck_Filter(t *testing.T) {
+	tests := []struct {
+		name     string
+		wantSize int
+		filter   func(Card) bool
+	}{
+		{
+			name:     "filter one suit",
+			wantSize: 13,
+			filter: func(card Card) bool {
+				return card.Suit == Heart
+			},
+		},
+		{
+			name:     "filter only aces",
+			wantSize: 4,
+			filter: func(card Card) bool {
+				return card.Rank == Ace
+			},
+		},
+		{
+			name:     "get a specific card",
+			wantSize: 1,
+			filter: func(card Card) bool {
+				return card.Rank == Ten && card.Suit == Spade
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cards := Filter(New(), tt.filter)
+
+			if tt.wantSize != len(cards) {
+				t.Errorf("want size %d, got %d", tt.wantSize, len(cards))
+			}
+		})
+	}
+}
+
 func TestDeck_Draw(t *testing.T) {
 	tests := []struct {
 		name     string
