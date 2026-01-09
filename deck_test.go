@@ -27,7 +27,7 @@ func Test_NewDeck(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cards := New(Deck(tt.amountOfDecks))
+			cards := New(Decks(tt.amountOfDecks))
 
 			if tt.wantSize != len(cards) {
 				t.Errorf("want size %d, got %d", tt.wantSize, len(cards))

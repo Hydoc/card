@@ -33,7 +33,7 @@ func New(opts ...func([]Card) []Card) []Card {
 	return cards
 }
 
-func Deck(amount int) func([]Card) []Card {
+func Decks(amount int) func([]Card) []Card {
 	return func(cards []Card) []Card {
 		var out []Card
 		for range amount {
