@@ -27,7 +27,7 @@ func Test_New(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cards := New(Decks(tt.amountOfDecks))
+			cards := New(WithDecks(tt.amountOfDecks))
 
 			if tt.wantSize != len(cards) {
 				t.Errorf("want size %d, got %d", tt.wantSize, len(cards))
@@ -56,7 +56,7 @@ func Test_Jokers(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cards := New(Jokers(tt.amountOfJokers))
+			cards := New(WithJokers(tt.amountOfJokers))
 
 			if tt.wantSize != len(cards) {
 				t.Errorf("want size %d, got %d", tt.wantSize, len(cards))

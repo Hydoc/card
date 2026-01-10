@@ -44,9 +44,9 @@ func New(opts ...func([]Card) []Card) []Card {
 	return cards
 }
 
-// Jokers puts the passed amount of jokers, with the Suit Joker, in the deck without a Rank.
+// WithJokers puts the passed amount of jokers, with the Suit Joker, in the deck without a Rank.
 // Can be used as an option when creating a deck using New.
-func Jokers(amount int) func([]Card) []Card {
+func WithJokers(amount int) func([]Card) []Card {
 	return func(cards []Card) []Card {
 		for range amount {
 			cards = append(cards, Card{
@@ -94,9 +94,9 @@ func Filter(f func(Card) bool) func([]Card) []Card {
 	}
 }
 
-// Decks puts the given amount of decks in a deck (52 * amount).
+// WithDecks puts the given amount of decks in a deck (52 * amount).
 // Can be used as an option when creating a deck using New.
-func Decks(amount int) func([]Card) []Card {
+func WithDecks(amount int) func([]Card) []Card {
 	return func(cards []Card) []Card {
 		var out []Card
 		for range amount {
