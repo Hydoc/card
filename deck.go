@@ -1,11 +1,14 @@
 package deck
 
-import "math/rand/v2"
+import (
+	"math/rand/v2"
+	"sort"
+)
 
 var Suits = []Suit{Spade, Diamond, Club, Heart}
 var Ranks = []Rank{Ace, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King}
 
-// Draw draws the given amount of cards and returns it as the first return value.
+// Draw removes the given amount of cards from the end and returns it as the first return value.
 // The second return value are the remaining cards in the deck.
 func Draw(amount int) func(cards []Card) ([]Card, []Card) {
 	return func(cards []Card) ([]Card, []Card) {
@@ -51,6 +54,27 @@ func Jokers(amount int) func([]Card) []Card {
 			})
 		}
 		return cards
+	}
+}
+
+// Sort takes a less function and applies it to the cards
+func Sort(less func(cards []Card) func(i, j int) bool) func([]Card) []Card {
+	return func(cards []Card) []Card {
+		sort.Slice(cards, less(cards))
+		return cards
+	}
+}
+
+// DefaultSort sorts the cards using the Less function
+func DefaultSort(cards []Card) []Card {
+	sort.Slice(cards, Less(cards))
+	return cards
+}
+
+// Less sorts the cards ascending by their corresponding rank
+func Less(cards []Card) func(i, j int) bool {
+	return func(i, j int) bool {
+		return cards[i].rank() < cards[j].rank()
 	}
 }
 

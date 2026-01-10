@@ -2,7 +2,7 @@ package deck
 
 import "testing"
 
-func Test_NewDeck(t *testing.T) {
+func Test_New(t *testing.T) {
 	tests := []struct {
 		name          string
 		wantSize      int
@@ -36,7 +36,7 @@ func Test_NewDeck(t *testing.T) {
 	}
 }
 
-func TestDeck_Jokers(t *testing.T) {
+func Test_Jokers(t *testing.T) {
 	tests := []struct {
 		name           string
 		wantSize       int
@@ -65,7 +65,7 @@ func TestDeck_Jokers(t *testing.T) {
 	}
 }
 
-func TestDeck_Filter(t *testing.T) {
+func Test_Filter(t *testing.T) {
 	tests := []struct {
 		name     string
 		wantSize int
@@ -105,7 +105,7 @@ func TestDeck_Filter(t *testing.T) {
 	}
 }
 
-func TestDeck_Draw(t *testing.T) {
+func Test_Draw(t *testing.T) {
 	tests := []struct {
 		name          string
 		wantSize      int
@@ -141,5 +141,33 @@ func TestDeck_Draw(t *testing.T) {
 				t.Errorf("want drawn cards %d, got %d", tt.amountOfDraws, len(drawnCards))
 			}
 		})
+	}
+}
+
+func Test_DefaultSort(t *testing.T) {
+	wantFirst := Card{Suit: Spade, Rank: Ace}
+	wantLast := Card{Suit: Heart, Rank: King}
+	deck := New(DefaultSort)
+
+	if deck[0] != wantFirst {
+		t.Errorf("wantFirst %s, got %s", wantFirst, deck[0])
+	}
+
+	if deck[len(deck)-1] != wantLast {
+		t.Errorf("wantLast %s, got %s", wantLast, deck[0])
+	}
+}
+
+func Test_Sort(t *testing.T) {
+	wantFirst := Card{Suit: Spade, Rank: Ace}
+	wantLast := Card{Suit: Heart, Rank: King}
+	deck := New(Sort(Less))
+
+	if deck[0] != wantFirst {
+		t.Errorf("wantFirst %s, got %s", wantFirst, deck[0])
+	}
+
+	if deck[len(deck)-1] != wantLast {
+		t.Errorf("wantLast %s, got %s", wantLast, deck[0])
 	}
 }

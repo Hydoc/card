@@ -4,6 +4,11 @@ package deck
 
 import "fmt"
 
+const (
+	minRank = Ace
+	maxRank = King
+)
+
 type Suit int
 type Rank int
 
@@ -47,4 +52,8 @@ func (c Card) String() string {
 		return fmt.Sprintf("%s of %ss", c.Rank, c.Suit)
 	}
 	return c.Suit.String()
+}
+
+func (c Card) rank() int {
+	return int(c.Suit)*int(maxRank) + int(c.Rank)
 }
